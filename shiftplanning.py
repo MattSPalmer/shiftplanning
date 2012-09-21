@@ -56,3 +56,37 @@ class ShiftPlanning():
         except:
             raise Exception(internal_errors['5'])
         pass
+
+    def perform_request(self, params):
+        if self.token:
+            data = urllib.urlencode([('data',
+                    json.dumps({'token':self.token,'request':params}))])
+        else:
+            data = urllib.urlencode([('data',
+                    json.dumps({'key':self.key,'request':params}))])
+
+        req = urllib2.Request(self.api_endpoint,
+                headers={'accept-charset':'UTF-8'})
+        try:
+            reader = urllib2.urlopen(req, data)
+        except:
+            raise Exception("""Cannot open the URL, please make sure API
+                    endpoint is correct.""")
+
+        if reader.code != 200:
+            raise Exception(internal_errors['2'])
+        response = reader.read()
+        if response == "":
+            return (None, "No JSON object received from server.")
+        response = json.loads(response)
+
+        if response.has_key('error'):
+            return {'error': response['error']}
+        else:
+            self.response_data = response['data']
+            self.response = response
+            if self.callback:
+                self.callback()
+        if params['module'] == 'staff.login':
+            if response.has_key('token'):
+                self.token = response['token']
