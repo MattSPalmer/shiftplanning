@@ -42,4 +42,17 @@ internal_errors = {
 
 class ShiftPlanning():
     def __init__(self, key, user, pwd):
+        self.api_endpoint = "http://www.shiftplanning.com/api/"
+        self.output_type = "json"
+        self.request = None
+        self.token = None
+        self.response = None
+        self.response_data = None
+        self.callback = None
+        self.username = user
+        self.password = pwd
+        try:
+            self.key = key
+        except:
+            raise Exception(internal_errors['5'])
         pass
