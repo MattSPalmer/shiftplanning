@@ -1,8 +1,8 @@
-ShiftPlanning Python SDK Redux
-==============================
+ShiftPlanning Python Toolkit
+============================
 
 ShiftPlanning's API support is very impressive. However, their [existing Python
-SDK](1) is incomplete and difficult to use, so I'm loosely adapting it to my
+SDK](1) is incomplete and difficult to use, so I'm **loosely** adapting it to my
 tastes and purposes.
 
 GET V. POST
