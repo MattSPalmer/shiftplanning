@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import json
+import sys
 import urllib
 import urllib2
 
@@ -55,7 +56,6 @@ class ShiftPlanning():
             self.key = key
         except:
             raise Exception(internal_errors['5'])
-        pass
 
     def perform_request(self, params):
         if self.token:
@@ -90,3 +90,28 @@ class ShiftPlanning():
         if params['module'] == 'staff.login':
             if response.has_key('token'):
                 self.token = response['token']
+    def get_public_data(self):
+        if self.response_data == '':
+            return "Data was empty in the response object (no data was sent from server)."
+        if self.token and self.response_data:
+            return self.response_data
+
+    def get_shifts(self, start, end, mode='overview'):
+        try:
+            start = start.strftime('%B %d, %Y')
+            end   = end.strftime('%B %d, %Y')
+        except AttributeError:
+            print 'Incorrectly formatted date(s)'
+            sys.exit(1)
+
+        params = {
+            "module": "schedule.shifts",
+            "method": "GET",
+            "start_date": start,
+            "end_date": end,
+            "mode": mode
+        }
+        self.perform_request(params)
+
+    def get_schedules(self):
+        return
