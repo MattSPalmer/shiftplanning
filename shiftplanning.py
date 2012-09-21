@@ -90,6 +90,16 @@ class ShiftPlanning():
         if params['module'] == 'staff.login':
             if response.has_key('token'):
                 self.token = response['token']
+
+    def do_login(self):
+        params = {
+            "module":"staff.login",
+            "method":"GET",
+            "username":self.username,
+            "password":self.password
+        }
+        self.perform_request(params)
+
     def get_public_data(self):
         if self.response_data == '':
             return "Data was empty in the response object (no data was sent from server)."
