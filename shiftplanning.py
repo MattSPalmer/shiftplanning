@@ -100,6 +100,13 @@ class ShiftPlanning():
         }
         self.perform_request(params)
 
+    def do_logout(self):
+        params = {
+            "module":"staff.logout",
+            "method":"GET"
+        }
+        self.perform_request(params)
+
     def get_public_data(self):
         if self.response_data == '':
             return "Data was empty in the response object (no data was sent from server)."
