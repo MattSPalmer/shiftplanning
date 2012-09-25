@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import json
 import sys
 import urllib
